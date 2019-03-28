@@ -4,11 +4,11 @@ import java.util.Objects;
 
 import static main.java.com.epam.Constants.AlgorithmConstants.INFINITY_DISTANCE;
 
-public class Vertex {
+public class Vertex implements IVertex{
     private final String name;
 
     private int shortestRoute;
-    private Vertex parent;
+    private IVertex parent;
     private boolean isVisited;
     private boolean hasMoreRoutes;
 
@@ -20,42 +20,52 @@ public class Vertex {
         hasMoreRoutes = false;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getShortestRoute() {
         return shortestRoute;
     }
 
-    public void setShortestRoute(int shortestRoute) {
+    @Override
+    public void setShortestRoute(final int shortestRoute) {
         this.shortestRoute = shortestRoute;
     }
 
-    public Vertex getParent() {
+    @Override
+    public IVertex getParent() {
         return parent;
     }
 
-    public void setParent(Vertex parent) {
+    @Override
+    public void setParent(final IVertex parent) {
         this.parent = parent;
     }
 
+    @Override
     public boolean isVisited() {
         return isVisited;
     }
 
-    public void setVisited(boolean visited) {
+    @Override
+    public void setVisited(final boolean visited) {
         isVisited = visited;
     }
 
+    @Override
     public boolean hasMoreRoutes() {
         return hasMoreRoutes;
     }
 
-    public void setHasMoreRoutes(boolean hasMoreRoutes) {
+    @Override
+    public void setHasMoreRoutes(final boolean hasMoreRoutes) {
         this.hasMoreRoutes = hasMoreRoutes;
     }
 
+    @Override
     public void clear(){
         shortestRoute = INFINITY_DISTANCE;
         parent = null;
@@ -64,7 +74,7 @@ public class Vertex {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
 
         if (this == object) {
             return true;
@@ -74,7 +84,7 @@ public class Vertex {
             return false;
         }
 
-        Vertex vertex = (Vertex) object;
+        final Vertex vertex = (Vertex) object;
 
         return Objects.equals(name, vertex.name);
     }

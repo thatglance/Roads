@@ -1,16 +1,19 @@
 package main.java.com.epam.data;
 
-import main.java.com.epam.graph.entity.Graph;
+import main.java.com.epam.graph.entity.IGraph;
 import main.java.com.epam.exception.WrongFileFormatException;
+import main.java.com.epam.graph.entity.IVertex;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class DataProvider {
+public final class DataProvider {
 
-    public static Graph readGraphFromFile(final String filePath) throws WrongFileFormatException {
+    public static IGraph<IVertex> readGraphFromFile(final String filePath)
+            throws WrongFileFormatException {
+
         try {
             final List<String> fileLines = Files.readAllLines(Paths.get(filePath));
 
@@ -20,7 +23,7 @@ public class DataProvider {
 
             return GraphCreator.createGraph(fileLines);
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
 
             return null;

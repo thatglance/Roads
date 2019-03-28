@@ -7,34 +7,37 @@ import main.java.com.epam.exception.MultiplePathsException;
 import main.java.com.epam.exception.NoInputDataException;
 import main.java.com.epam.exception.PathNotFoundException;
 import main.java.com.epam.graph.algorithm.GraphAlgorithms;
-import main.java.com.epam.graph.entity.Graph;
-import main.java.com.epam.graph.entity.Vertex;
+import main.java.com.epam.graph.entity.IGraph;
+import main.java.com.epam.graph.entity.IVertex;
 import main.java.com.epam.exception.WrongFileFormatException;
 
 public class GpsNavigatorImpl implements GpsNavigator {
-    private Graph graph;
+
+    private IGraph<IVertex> graph;
 
     @Override
-    public void readData(String filePath) {
+    public void readData(final String filePath) {
         try {
             graph = DataProvider.readGraphFromFile(filePath);
-        } catch (WrongFileFormatException e) {
+        } catch (final WrongFileFormatException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Override
-    public Path findPath(String pointA, String pointB){
+    public Path findPath(final String pointA, final String pointB) {
         try {
             if (graph == null) {
                 throw new NoInputDataException("No input data provided!");
             }
 
-            return GraphAlgorithms.findShortestRoute(new Vertex(pointA), new Vertex(pointB), graph);
+            return GraphAlgorithms.findShortestRoute(graph.get(pointA), graph.get(pointB), graph,
+                    edge -> edge.getCost() * edge.getCost() * edge.getLength());
         } catch (final MultiplePathsException | PathNotFoundException | NoInputDataException e) {
             System.out.println(e.getMessage());
 
             return null;
         }
     }
+
 }
