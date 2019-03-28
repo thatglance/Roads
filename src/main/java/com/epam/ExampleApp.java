@@ -9,11 +9,12 @@ import main.java.com.epam.impl.GpsNavigatorImpl;
  */
 public class ExampleApp {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
+
         final GpsNavigator navigator = new GpsNavigatorImpl();
         navigator.readData("input.txt");
 
-        final Path path = navigator.findPath("A", "blaB");
+        final Path path = navigator.findPath("F", "B");
 
         if (path != null){
             System.out.println(path);

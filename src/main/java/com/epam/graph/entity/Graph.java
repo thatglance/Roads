@@ -2,50 +2,59 @@ package main.java.com.epam.graph.entity;
 
 import java.util.*;
 
-public class Graph {
-    private final Map<String, Vertex> vertexes;
-    private final Map<Vertex, List<Edge>> adjacencyList;
+public class Graph<V extends IVertex> implements IGraph<V> {
+
+    private final Map<String, V> vertexes;
+    private final Map<V, List<Edge<V>>> adjacencyList;
 
     public Graph() {
         this.vertexes = new HashMap<>();
         this.adjacencyList = new HashMap<>();
     }
 
-    public Collection<Vertex> getVertexes() {
+    @Override
+    public Collection<V> getVertexes() {
         return vertexes.values();
     }
 
-    public Map<Vertex, List<Edge>> getAdjacencyList() {
+    @Override
+    public Map<V, List<Edge<V>>> getAdjacencyList() {
         return adjacencyList;
     }
 
-    public List<Edge> getVertexNeighbours(final Vertex vertex) {
+    @Override
+    public List<Edge<V>> getVertexNeighbours(final V vertex) {
         return adjacencyList.get(vertex);
     }
 
-    public void addVertex(final Vertex vertex) {
+    @Override
+    public void addVertex(final V vertex) {
         vertexes.put(vertex.getName(), vertex);
     }
 
-    public void addEdge(final Vertex vertexFrom, final Edge edge) {
-        Vertex vertexTo = edge.getVertexTo();
+    @Override
+    public void addEdge(final V vertexFrom, final Edge<V> edge) {
+        final V vertexTo = edge.getVertexTo();
         addVertex(vertexFrom);
         addVertex(vertexTo);
 
-        final List<Edge> listFromAdjacencyList = adjacencyList.getOrDefault(vertexFrom, new ArrayList<>());
+        final List<Edge<V>> listFromAdjacencyList = adjacencyList.getOrDefault(vertexFrom, new ArrayList<>());
         listFromAdjacencyList.add(edge);
         adjacencyList.put(vertexFrom, listFromAdjacencyList);
     }
 
-    public boolean contains(final String vertexName){
+    @Override
+    public boolean contains(final String vertexName) {
         return vertexes.containsKey(vertexName);
     }
 
-    public Vertex get(final String vertexName){
+    @Override
+    public V get(final String vertexName) {
         return vertexes.get(vertexName);
     }
 
-    public Vertex getOrDefault(final String vertexName, final Vertex defaultVertex){
+    @Override
+    public V getOrDefault(final String vertexName, final V defaultVertex) {
         return vertexes.getOrDefault(vertexName, defaultVertex);
     }
 }

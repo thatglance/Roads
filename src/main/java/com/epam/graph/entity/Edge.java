@@ -1,20 +1,20 @@
 package main.java.com.epam.graph.entity;
 
-public class Edge {
+public class Edge<V extends IVertex> {
 
-    private final Vertex vertexTo;
+    private final V vertexTo;
     private final int length;
     private final int cost;
     private final int totalCost;
 
-    public Edge(Vertex vertexTo, int length, int cost) {
+    public Edge(final V vertexTo, final int length, final int cost) {
         this.vertexTo = vertexTo;
         this.length = length;
         this.cost = cost;
         this.totalCost = length * cost;
     }
 
-    public Vertex getVertexTo() {
+    public V getVertexTo() {
         return vertexTo;
     }
 

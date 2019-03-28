@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Path {
 
-    private static String TO_STRING_PATTERN = "Path: %s; of cost %d";
+    private static final String TO_STRING_PATTERN = "Path: %s; of cost %d";
 
     /**
      * All points of the path in the order we need to visit it.
@@ -16,7 +16,7 @@ public class Path {
      */
     private final int cost;
 
-    public Path(List<String> path, int cost) {
+    public Path(final List<String> path, final int cost) {
         this.path = path;
         this.cost = cost;
     }
